@@ -53,10 +53,10 @@
                                 </div>
                             }
 
-                            @if (MenuVM.TaskRemaining > 0)
+                            @if (MenuVM.TaskRequirementsCounter.Total > 0)
                             {
                                 <div class="d-flex align-center stroke">
-                                    @MenuVM.TaskRemaining <MudIcon Icon="@Icons.Material.Filled.Checklist" Size="Size.Small" Class="ml-1" />
+                                    @MenuVM.TaskRequirementsCounter.Total <MudIcon Icon="@Icons.Material.Filled.Checklist" Size="Size.Small" Class="ml-1" />
                                 </div>
                             }
                             @if (MenuVM.HideoutRemaining > 0)
@@ -90,7 +90,7 @@
                         </div>
                     }
 
-                    @if (MenuVM.TaskRemaining > 0)
+                    @if (MenuVM.TaskRequirementsCounter.Total > 0)
                     {
                         <MudIcon Icon="@Icons.Material.Filled.Checklist" Size="Size.Small" Class="ml-1" />
                     }

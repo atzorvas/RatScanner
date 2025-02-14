@@ -56,6 +56,8 @@ internal class MenuVM : INotifyPropertyChanged {
 
 	public bool ShowKappaNeeds => RatConfig.Tracking.ShowKappaNeeds;
 
+	public bool ShowLightkeeperNeeds => RatConfig.Tracking.ShowLightkeeperNeeds;
+
 	public List<KeyValuePair<string, KeyValuePair<int, int>>>? ItemTeamNeeds {
 		get {
 			if (!RatConfig.Tracking.TarkovTracker.Enable) return null;

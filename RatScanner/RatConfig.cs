@@ -95,6 +95,8 @@ internal static class RatConfig {
 
 		internal static bool ShowKappaNeeds = false;
 
+		internal static bool ShowLightkeeperNeeds = false;
+
 		internal static class TarkovTracker {
 			internal static bool Enable => Token.Length > 0;
 
@@ -196,6 +198,7 @@ internal static class RatConfig {
 		config.Section = nameof(Tracking);
 		Tracking.ShowNonFIRNeeds = config.ReadBool(nameof(Tracking.ShowNonFIRNeeds), Tracking.ShowNonFIRNeeds);
 		Tracking.ShowKappaNeeds = config.ReadBool(nameof(Tracking.ShowKappaNeeds), Tracking.ShowKappaNeeds);
+		Tracking.ShowLightkeeperNeeds = config.ReadBool(nameof(Tracking.ShowLightkeeperNeeds), Tracking.ShowLightkeeperNeeds);
 
 		config.Section = nameof(Tracking.TarkovTracker);
 		Tracking.TarkovTracker.Token = config.ReadString(nameof(Tracking.TarkovTracker.Token), Tracking.TarkovTracker.Token);
@@ -256,6 +259,7 @@ internal static class RatConfig {
 		config.Section = nameof(Tracking);
 		config.WriteBool(nameof(Tracking.ShowNonFIRNeeds), Tracking.ShowNonFIRNeeds);
 		config.WriteBool(nameof(Tracking.ShowKappaNeeds), Tracking.ShowKappaNeeds);
+		config.WriteBool(nameof(Tracking.ShowLightkeeperNeeds), Tracking.ShowLightkeeperNeeds);
 
 		config.Section = nameof(Tracking.TarkovTracker);
 		config.WriteString(nameof(Tracking.TarkovTracker.Token), Tracking.TarkovTracker.Token);
