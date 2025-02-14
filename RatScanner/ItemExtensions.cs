@@ -1,4 +1,5 @@
 ﻿using RatScanner.FetchModels.TarkovTracker;
+using RatScanner.Models;
 using RatScanner.TarkovDev.GraphQL;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ public static class ItemExtensions {
 		return progress ?? new UserProgress();
 	}
 
-	public static (int count, int kappaCount) GetTaskRemaining(this Item item, UserProgress? progress = null) {
+	public static TaskRequirementsCounter GetTaskRemaining(this Item item, UserProgress? progress = null) {
 		// Compensation for Damage Tasks
 		// These tasks are not tracked by TarkovTracker
 		string[] excludedTasks = new string[] {
@@ -31,6 +32,7 @@ public static class ItemExtensions {
 		int needed = 0;
 		int count = 0;
 		int kappaCount = 0;
+		int lightkeeperCount = 0;
 		
 		bool showNonFir = RatConfig.Tracking.ShowNonFIRNeeds;
 
@@ -56,6 +58,7 @@ public static class ItemExtensions {
 					foreach (Progress p in objectiveProgress) needed -= p.Complete ? oGiveItem.Count : p.Count;
 					count += needed;
 					if (task.KappaRequired == true) kappaCount += needed;
+					if (task.LightkeeperRequired == true) lightkeeperCount += needed;
 				} else if (objective is TaskObjectiveItem oPlantItem && oPlantItem.Type == "plantItem") {
 					if ((!oPlantItem.Items?.Any(i => i?.Id == item.Id)) ?? true) continue;	// Skip if item is not the one we are looking for
 					if (!showNonFir) continue;												// Skip if item is not FIR
@@ -64,6 +67,7 @@ public static class ItemExtensions {
 					foreach (Progress p in objectiveProgress) needed -= p.Complete ? oPlantItem.Count : p.Count;
 					count += needed;
 					if (task.KappaRequired == true) kappaCount += needed;
+					if (task.LightkeeperRequired == true) lightkeeperCount += needed;
 				} else if (objective is TaskObjectiveMark oMark && oMark.Type == "mark") {
 					if (oMark.MarkerItem?.Id != item.Id) continue;  // Skip if item is not the one we are looking for
 					if (!showNonFir) continue;                      // Skip if item is not FIR
@@ -72,6 +76,7 @@ public static class ItemExtensions {
 					foreach (Progress p in objectiveProgress) needed -= 1;
 					count += needed;
 					if (task.KappaRequired == true) kappaCount += needed;
+					if (task.LightkeeperRequired == true) lightkeeperCount += needed;
 				} else if (objective is TaskObjectiveBuildItem oBuildWeapon && oBuildWeapon.Type == "buildWeapon") {
 					if (oBuildWeapon.Item?.Id != item.Id) continue; // Skip if item is not the one we are looking for
 					if (!showNonFir) continue;                      // Skip if item is not FIR
@@ -80,10 +85,11 @@ public static class ItemExtensions {
 					foreach (Progress p in objectiveProgress) needed -= 1;
 					count += needed;
 					if (task.KappaRequired == true) kappaCount += needed;
+					if (task.LightkeeperRequired == true) lightkeeperCount += needed;
 				}
 			}
 		}
-		return (count, kappaCount);
+		return new TaskRequirementsCounter(count, kappaCount, lightkeeperCount);
 	}
 
 	public static int GetHideoutRemaining(this Item item, UserProgress? progress = null) {

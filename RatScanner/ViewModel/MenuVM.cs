@@ -1,5 +1,6 @@
 ﻿using RatScanner.Scan;
 using RatScanner.TarkovDev.GraphQL;
+using RatScanner.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -47,15 +48,11 @@ internal class MenuVM : INotifyPropertyChanged {
 	public ItemPrice? BestTraderOffer => LastItem.GetBestTraderOffer();
 	public TraderOffer? BestTraderOfferVendor => LastItem.GetBestTraderOfferVendor();
 
-    public (int count, int kappaCount) TaskRemainingResult => LastItem.GetTaskRemaining();
-
-    public int TaskRemaining => TaskRemainingResult.count;
-
-    public int TaskRemainingKappa => TaskRemainingResult.kappaCount;
+    public TaskRequirementsCounter TaskRequirementsCounter => LastItem.GetTaskRemaining();
 	
 	public int HideoutRemaining => LastItem.GetHideoutRemaining();
 
-	public bool ItemNeeded => TaskRemaining + HideoutRemaining > 0;
+	public bool ItemNeeded => TaskRequirementsCounter.Total + HideoutRemaining > 0;
 
 	public bool ShowKappaNeeds => RatConfig.Tracking.ShowKappaNeeds;
 
@@ -67,7 +64,7 @@ internal class MenuVM : INotifyPropertyChanged {
 
 			List<KeyValuePair<string, KeyValuePair<int, int>>> needs = new();
 			foreach (FetchModels.TarkovTracker.UserProgress? memberProgress in teamProgress) {
-				int task = LastItem.GetTaskRemaining(memberProgress).Item1;
+				int task = LastItem.GetTaskRemaining(memberProgress).Total;
 				int hideout = LastItem.GetHideoutRemaining(memberProgress);
 
 				if (task == 0 && hideout == 0) continue;

@@ -177,6 +177,7 @@ public static class TarkovDevAPI {
 	private static string TasksQuery(LanguageCode language, GameMode gameMode) {
 		return new QueryQueryBuilder().WithTasks(new TaskQueryBuilder().WithAllScalarFields()
 			.WithKappaRequired()
+			.WithLightkeeperRequired()
 			.WithMap(new MapQueryBuilder().WithAllScalarFields())
 			.WithTrader(new TraderQueryBuilder().WithAllScalarFields())
 			.WithObjectives(new TaskObjectiveQueryBuilder().WithAllScalarFields()
