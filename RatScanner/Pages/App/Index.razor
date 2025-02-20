@@ -50,10 +50,10 @@
         </MudItem>
         <MudItem xs="12">
             <MudPaper Class="d-flex align-center justify-space-around pa-1 mx-2 my-1" Elevation="2">
-                <div class="d-flex align-center">
+                <div class="d-flex align-left">
                     @MenuVM.TaskRequirementsCounter.Total <MudIcon Icon="@Icons.Material.Filled.Checklist" Size="Size.Small" Class="ml-1" /> Quest
                 </div>
-                <div class="d-flex align-center">
+                <div class="d-flex align-right">
                     @MenuVM.HideoutRemaining <MudIcon Icon="@Icons.Material.Filled.House" Size="Size.Small" Class="ml-1" /> Hideout
                 </div>
             </MudPaper>
@@ -62,12 +62,12 @@
             <MudItem xs="12">
                 <MudPaper Class="d-flex align-center justify-space-around pa-1 mx-2 my-1" Elevation="2">
                     @if (MenuVM.ShowKappaNeeds == true) {
-                        <div class="d-flex align-center">
+                        <div class="d-flex align-left">
                             @MenuVM.TaskRequirementsCounter.Kappa <MudIcon Icon="@Icons.Material.Filled.Checklist" Size="Size.Small" Class="ml-1" /> Kappa
                         </div>
                     }
                     @if (MenuVM.ShowLightkeeperNeeds == true) {
-                        <div class="d-flex align-center">
+                        <div class="d-flex align-right">
                             @MenuVM.TaskRequirementsCounter.Lightkeeper <MudIcon Icon="@Icons.Material.Filled.Checklist" Size="Size.Small" Class="ml-1" /> Lightkeeper
                         </div>
                     }

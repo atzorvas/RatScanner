@@ -188,7 +188,11 @@ public static class TarkovDevAPI {
 				.WithTaskObjectiveItemFragment(new TaskObjectiveItemQueryBuilder().WithAllScalarFields().WithItems(new ItemQueryBuilder().WithAllScalarFields()))
 				.WithTaskObjectiveMarkFragment(new TaskObjectiveMarkQueryBuilder().WithAllScalarFields().WithMarkerItem(new ItemQueryBuilder().WithAllScalarFields()))
 				.WithTaskObjectivePlayerLevelFragment(new TaskObjectivePlayerLevelQueryBuilder().WithAllScalarFields())
-				.WithTaskObjectiveQuestItemFragment(new TaskObjectiveQuestItemQueryBuilder().WithAllScalarFields().WithQuestItem(new QuestItemQueryBuilder().WithAllScalarFields()))
+				.WithTaskObjectiveQuestItemFragment(
+					new TaskObjectiveQuestItemQueryBuilder().WithAllScalarFields()
+					.WithQuestItem(new QuestItemQueryBuilder().WithAllScalarFields())
+					.WithRequiredKeys(new ItemQueryBuilder().WithAllScalarFields())
+				)
 				.WithTaskObjectiveShootFragment(new TaskObjectiveShootQueryBuilder().WithAllScalarFields())
 				.WithTaskObjectiveSkillFragment(new TaskObjectiveSkillQueryBuilder().WithAllScalarFields())
 				.WithTaskObjectiveTaskStatusFragment(new TaskObjectiveTaskStatusQueryBuilder().WithAllScalarFields())

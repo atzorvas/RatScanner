@@ -86,7 +86,25 @@ public static class ItemExtensions {
 					count += needed;
 					if (task.KappaRequired == true) kappaCount += needed;
 					if (task.LightkeeperRequired == true) lightkeeperCount += needed;
-				}
+				} else if (objective is TaskObjectiveQuestItem oQuestItem) {
+                    if (oQuestItem.RequiredKeys == null) continue;
+                    var found = false;
+					foreach (var keys in oQuestItem.RequiredKeys) {
+						if (keys == null) continue;
+						foreach (var key in keys) {
+							if (key?.Id == item.Id) {
+								found = true;
+							}
+						}
+					}
+					if (!found) continue;
+                    needed = 1;
+                    List<Progress> objectiveProgress = progress.TaskObjectives.Where(p => p.Id == objective.Id).ToList();
+                    foreach (Progress p in objectiveProgress) needed -= 1;
+                    count += needed;
+                    if (task.KappaRequired == true) kappaCount += needed;
+                    if (task.LightkeeperRequired == true) lightkeeperCount += needed;
+                }
 			}
 		}
 		return new TaskRequirementsCounter(count, kappaCount, lightkeeperCount);
